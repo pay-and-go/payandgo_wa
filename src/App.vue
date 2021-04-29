@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/createuser">CreateUser</router-link>
     </div>
     <router-view />
   </div>
@@ -29,4 +29,12 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+/* .fondo {
+  margin-top: -5px;
+  padding-top: 50px;
+  height: 100vh;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/1/13/Red_2019_Ferrari_SF90_Stradale_%2848264238897%29_%28cropped%29.jpg");
+  background-size: cover;
+} */
 </style>
