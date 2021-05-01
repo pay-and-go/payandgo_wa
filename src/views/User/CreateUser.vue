@@ -1,6 +1,6 @@
 <template>
   <div class="fondo">
-    <!-- <Card
+    <Card
       style="
         margin: 0 auto;
         width: 25rem;
@@ -28,7 +28,7 @@
       <template slot="footer">
         <Button icon="pi pi-check" label="Agregar usuario" />
       </template>
-    </Card> -->
+    </Card>
     <div v-for="route in allRoutes" :key="route.idRoute">
       {{ route.idRoute }}
       {{ route.startCity }}
