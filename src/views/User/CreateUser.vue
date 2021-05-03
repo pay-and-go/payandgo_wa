@@ -191,6 +191,9 @@ export default {
       }
     },
   },
+  created() {
+    console.log(this.$store.state.User.userAuth);
+  },
 };
 </script>
 
