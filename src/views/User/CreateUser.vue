@@ -114,33 +114,11 @@
 
 <script>
 import gql from "graphql-tag";
-<<<<<<< HEAD
-const ALLROUTES = gql`
-  query {
-    allRoutes {
-      idRoute
-      startCity
-      arrivalCity
-      description
-      latitudeStart
-      longitudeStart
-      latitudeEnd
-      longitudeEnd
-    }
-  }
-`;
-export default {
-  name: "CreateUser",
-  apollo: {
-    allRoutes: ALLROUTES,
-  },
-=======
 
 export default {
   name: "CreateUser",
   apollo: {},
 
->>>>>>> 78ef95302293fa26c1214e888c0971a5dc42c660
   data() {
     return {
       user: {
