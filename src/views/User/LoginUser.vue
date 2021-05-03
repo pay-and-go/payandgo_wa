@@ -54,6 +54,7 @@ import gql from "graphql-tag";
 const ALLUSERS = gql`
   query {
     allUsers {
+      id
       cedula
       first_name
       last_name
@@ -78,20 +79,17 @@ export default {
   },
   methods: {
     onClicked() {
-      var logged = false;
-
       this.allUsers.forEach((element) => {
         if (
           element.mail == this.user.mail &&
           element.password == this.user.password
         ) {
-          logged = true;
           this.$store.dispatch("User/loginUser", element);
           console.log(this.$store.state.User.userAuth);
           this.$router.push("/");
         }
       });
-      if (!logged) {
+      if (this.$store.state.User.userAuth === null) {
         alert("Credenciales incorrectas");
       }
     },
