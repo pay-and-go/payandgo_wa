@@ -1,64 +1,123 @@
 <template>
-  <div class="fondo">
-    <Card
-      style="
-        margin: 0 auto;
-        width: 25rem;
-        margin-bottom: 2em;
-        text-align: center;
-      "
-    >
-      <template slot="title"> Crear Usuario </template>
-      <template slot="content">
-        <h5>Nombre:</h5>
-        <InputText style="width: 100%" type="text" v-model="user.first_name" />
-        <h5>Apellido:</h5>
-        <InputText style="width: 100%" type="text" v-model="user.last_name" />
-        <h5>Cedula:</h5>
-        <InputText style="width: 100%" type="text" v-model="user.cedula" />
-        <h5>Correo:</h5>
-        <InputText style="width: 100%" type="text" v-model="user.mail" />
-        <h5>Contraseña:</h5>
-        <InputText
-          style="width: 100%"
-          type="password"
-          v-model="user.password"
-        />
-      </template>
-      <template slot="footer">
-        <Button icon="pi pi-check" label="Agregar usuario" />
-      </template>
-    </Card>
-    <div v-for="route in allRoutes" :key="route.idRoute">
-      {{ route.idRoute }}
-      {{ route.startCity }}
-    </div>
+  <div>
+    <b-container class="createUser">
+      <h1 class="title mt-4"><b>Registrar usuario</b></h1>
+      <b-form class="form" id="form">
+        <!-- Nombre -->
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Nombre"
+          label-for="first_name"
+        >
+          <b-form-input
+            type="text"
+            maxlength="6"
+            id="first_name"
+            placeholder="Ingresa su nombre"
+            v-model="user.first_name"
+            required
+          ></b-form-input
+        ></b-form-group>
+        <!-- Apellido -->
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Apellido"
+          label-for="last_name"
+        >
+          <b-form-input
+            type="text"
+            maxlength="20"
+            id="last_name"
+            placeholder="Ingresa sus apellidos"
+            v-model="user.last_name"
+            required
+          ></b-form-input
+        ></b-form-group>
+        <!-- Color -->
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Cedula"
+          label-for="cedula"
+        >
+          <b-form-input
+            type="text"
+            maxlength="20"
+            id="cedula"
+            placeholder="Ingresa su documento de identificacion"
+            v-model="user.cedula"
+            required
+          ></b-form-input
+        ></b-form-group>
+        <!-- Correo -->
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Correo"
+          label-for="mail"
+        >
+          <b-form-input
+            type="text"
+            maxlength="20"
+            id="mail"
+            placeholder="Ingresa el correo"
+            v-model="user.mail"
+            required
+          ></b-form-input
+        ></b-form-group>
+        <!-- Contraseña -->
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Contraseña"
+          label-for="password"
+        >
+          <b-form-input
+            type="password"
+            maxlength="20"
+            id="password"
+            placeholder="Ingresa su contraseña"
+            v-model="user.password"
+            required
+          ></b-form-input
+        ></b-form-group>
+        <!-- Verificar contraseña -->
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Contraseña"
+          label-for="verifyPassword"
+        >
+          <b-form-input
+            type="password"
+            maxlength="20"
+            id="verifyPassword"
+            placeholder="Repita su contraseña"
+            v-model="verifyPassword"
+            required
+          ></b-form-input
+        ></b-form-group>
+        <b-button
+          block
+          class="button-primary mt-4"
+          syze="sm"
+          type="submit"
+          @click="onClicked"
+          >Registrar</b-button
+        >
+      </b-form>
+    </b-container>
   </div>
 </template>
 
 <script>
 import gql from "graphql-tag";
 
-const ALLROUTES = gql`
-  query {
-    allRoutes {
-      idRoute
-      startCity
-      arrivalCity
-      description
-      latitudeStart
-      longitudeStart
-      latitudeEnd
-      longitudeEnd
-    }
-  }
-`;
-
 export default {
   name: "CreateUser",
-  apollo: {
-    allRoutes: ALLROUTES,
-  },
+  apollo: {},
 
   data() {
     return {
@@ -69,17 +128,97 @@ export default {
         mail: "",
         password: "",
       },
+      verifyPassword: "",
+      response: null,
     };
   },
-  methods: {},
+  methods: {
+    async onClicked() {
+      if (this.user.password === this.verifyPassword) {
+        await this.$apollo
+          .mutate({
+            mutation: gql`
+              mutation(
+                $first_name: String!
+                $last_name: String!
+                $cedula: Int!
+                $mail: String!
+                $password: String!
+              ) {
+                createUser(
+                  user: {
+                    first_name: $first_name
+                    last_name: $last_name
+                    cedula: $cedula
+                    mail: $mail
+                    password: $password
+                  }
+                ) {
+                  first_name
+                  last_name
+                }
+              }
+            `,
+            variables: {
+              first_name: this.user.first_name,
+              last_name: this.user.last_name,
+              cedula: this.user.cedula,
+              mail: this.user.mail,
+              password: this.user.password,
+            },
+          })
+          .then((data) => {
+            alert(
+              "Usuario: " +
+                data.first_name +
+                " " +
+                data.last_name +
+                "agregado correctamente"
+            );
+          })
+          .catch(() => {
+            alert("El usuario ya existe en el sistema");
+            this.user.first_name = "";
+            this.user.last_name = "";
+            this.user.cedula = "";
+            this.user.mail = "";
+            this.user.password = "";
+          });
+      } else {
+        this.user.password = "";
+        this.verifyPassword = "";
+        alert("Las contraseñas no coinciden");
+      }
+    },
+  },
 };
 </script>
 
-<style>
-.p-card-content {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding: 0vw 1.8vw 1vw 1.8vw !important;
-  text-align: left;
+<style scoped>
+.createUser {
+  padding: 2rem;
+}
+.button-primary {
+  background-color: #141414;
+  color: #f6f7eb;
+}
+.title {
+  text-align: center;
+  font-size: 2.5em;
+  color: #141414;
+}
+.form {
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  background: #e9cc95;
+  border-radius: 10px;
+  max-width: 540px;
+  padding: 40px;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+  text-align: justify;
+}
+.light-text {
+  color: #141414 !important;
 }
 </style>
