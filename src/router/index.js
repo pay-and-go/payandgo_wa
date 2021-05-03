@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import CreateUser from "../views/User/CreateUser.vue";
+import LoginUser from "../views/User/LoginUser.vue";
+
 import RegisterVehicle from "../views/Vehicles/RegisterVehicle.vue";
 
 Vue.use(VueRouter);
@@ -21,6 +23,11 @@ const routes = [
     path: "/createuser",
     name: "CreateUser",
     component: CreateUser,
+  },
+  {
+    path: "/loginuser",
+    name: "LoginUser",
+    component: LoginUser,
   },
 ];
 
