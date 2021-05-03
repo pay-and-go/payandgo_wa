@@ -12,7 +12,7 @@
         >
           <b-form-input
             type="text"
-            maxlength="20"
+            maxlength="30"
             id="mail"
             placeholder="Ingresa el correo"
             v-model="user.mail"
@@ -89,6 +89,7 @@ export default {
           this.$router.push("/");
         }
       });
+
       if (this.$store.state.User.userAuth === null) {
         alert("Credenciales incorrectas");
       }
