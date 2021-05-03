@@ -5,9 +5,9 @@ import CreateUser from "../views/User/CreateUser.vue";
 import LoginUser from "../views/User/LoginUser.vue";
 
 import RegisterVehicle from "../views/Vehicles/RegisterVehicle.vue";
-
 import VerMapa from "../views/Routes/VerMapa.vue";
 
+import Vehicle from "../views/Vehicles/Vehicle.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -20,6 +20,11 @@ const routes = [
     path: "/registervehicle",
     name: "RegisterVehicle",
     component: RegisterVehicle,
+  },
+  {
+    path: "/vehicle",
+    name: "Vehicle",
+    component: Vehicle,
   },
   {
     path: "/createuser",
