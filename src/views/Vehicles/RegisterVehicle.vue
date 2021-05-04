@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fondo">
     <b-container class="registervehicle">
       <h1 class="title mt-4"><b>Registrar Vehiculo</b></h1>
       <b-form class="form" id="form">
@@ -161,6 +161,14 @@ export default {
       });
       this.$router.push("/");
     },
+    mounted() {
+      if (this.$store.state.User.userAuth) {
+        this.id = this.$store.state.User.userAuth.id;
+      } else {
+        this.$router.push("/loginuser");
+        alert("Debes loguearte para ver tu perfil");
+      }
+    },
   },
 };
 </script>
@@ -182,7 +190,7 @@ export default {
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
-  background: #f6f7eb;
+  background: #e74c4c;
   border-radius: 10px;
   max-width: 540px;
   padding: 40px;

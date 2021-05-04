@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fondo">
     <b-container class="loginUser">
       <h1 class="title mt-4"><b>Login</b></h1>
       <b-form class="form" id="form">
@@ -115,7 +115,7 @@ export default {
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
-  background: #e9cc95;
+  background: #e74c4c;
   border-radius: 10px;
   max-width: 540px;
   padding: 40px;

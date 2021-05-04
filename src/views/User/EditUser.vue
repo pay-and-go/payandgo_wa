@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fondo">
     <b-container class="editUser">
       <h1 class="title mt-4"><b>Editar usuario</b></h1>
       <b-form class="form" id="form">
