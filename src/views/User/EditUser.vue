@@ -173,7 +173,7 @@ export default {
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
-  background: #e9cc95;
+  background: #e74c4c;
   border-radius: 10px;
   max-width: 540px;
   padding: 40px;

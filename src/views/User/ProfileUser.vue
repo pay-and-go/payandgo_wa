@@ -64,7 +64,10 @@
             <b-button variant="outline-info" @click="editVehicle"
               >Editar vehiculo</b-button
             >
-            <b-button variant="danger" @click="deleteVehicle(vehicle.id)"
+            <b-button
+              class="btnVehicle"
+              variant="danger"
+              @click="deleteVehicle(vehicle.id)"
               >Eliminar vehiculo</b-button
             >
           </b-card>
@@ -225,5 +228,9 @@ export default {
 .btn.firstButton {
   margin: 1.5rem;
   margin-left: 0;
+}
+
+.btn.btnVehicle {
+  margin-left: 1rem;
 }
 </style>

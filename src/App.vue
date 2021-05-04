@@ -2,10 +2,22 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/createuser">CreateUser </router-link> |
-      <router-link to="/registervehicle">Register Vehicle</router-link> |
-      <router-link to="/profileuser">Profile</router-link> |
-      <router-link to="/loginuser">Login</router-link>
+      <router-link to="/createuser" v-if="!$store.state.User.userAuth"
+        >Crear Usuario |
+      </router-link>
+
+      <router-link to="/registervehicle" v-if="$store.state.User.userAuth"
+        >Registrar vehiculo |
+      </router-link>
+
+      <router-link to="/profileuser" v-if="$store.state.User.userAuth"
+        >Perfil usuario |
+      </router-link>
+
+      <router-link to="/loginuser" v-if="!$store.state.User.userAuth"
+        >Iniciar sesion</router-link
+      >
+      <router-link to="/logoutuser" v-else>Cerrar sesion</router-link>
     </div>
     <router-view />
   </div>
@@ -31,12 +43,12 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #d3d61d;
+  color: #ebe5d1;
 }
 
 .fondo {
   margin-top: -5px;
-  padding-top: 50px;
+  padding-top: 25px;
   height: 110vh;
   background-color: #ebe5d1;
   background-size: cover;
