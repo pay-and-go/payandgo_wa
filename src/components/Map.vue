@@ -5,37 +5,12 @@
       :zoom="15"
       style="width: 640px; height: 500px; margin: 32px auto"
     >
-      <GmapMarker
-        v-for="marker in allRoutes"
-        :key="marker.idRoute"
-        :position="{ lat: marker.latitudeStart, lng: marker.longitudeStart }"
-      />
-      <GmapMarker
-        v-for="marker in allRoutes"
-        :key="marker.idRoute"
-        :position="{ lat: marker.latitudeEnd, lng: marker.longitudeEnd }"
-      />
     </GmapMap>
   </div>
 </template>
 
 <script>
-import gql from "graphql-tag";
-
-const ALLROUTES = gql`
-  query {
-    allRoutes {
-      idRoute
-      startCity
-      arrivalCity
-      description
-      latitudeStart
-      longitudeStart
-      latitudeEnd
-      longitudeEnd
-    }
-  }
-`;
+//import gql from "graphql-tag";
 
 export default {
   data() {
@@ -47,9 +22,6 @@ export default {
       },
       markers: [],
     };
-  },
-  apollo: {
-    allRoutes: ALLROUTES,
   },
   created() {
     this.$getLocation({}).then((coordinates) => {

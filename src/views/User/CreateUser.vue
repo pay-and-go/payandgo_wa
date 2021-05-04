@@ -128,6 +128,11 @@ export default {
         mail: "",
         password: "",
       },
+      vehicle: {
+        nameOwner: "Pedro",
+        idOwner: "1230",
+        licenseCar: "CDD130",
+      },
       verifyPassword: "",
       response: null,
     };
@@ -189,6 +194,29 @@ export default {
         this.verifyPassword = "";
         alert("Las contraseñas no coinciden");
       }
+    },
+
+    async prb() {
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation($name: String!, $license_car: String!, $id_owner: String!) {
+            createCar(
+              car: {
+                licenseCar: $license_car
+                nameOwner: $name
+                idOwner: $id_owner
+              }
+            ) {
+              idNodeCar
+            }
+          }
+        `,
+        variables: {
+          name: this.vehicle.nameOwner,
+          license_car: this.vehicle.licenseCar,
+          id_owner: this.vehicle.idOwner,
+        },
+      });
     },
   },
   created() {
