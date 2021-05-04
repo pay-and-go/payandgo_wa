@@ -85,7 +85,6 @@ export default {
           element.password == this.user.password
         ) {
           this.$store.dispatch("User/loginUser", element);
-          console.log(this.$store.state.User.userAuth);
           this.$router.push("/");
         }
       });
