@@ -158,8 +158,16 @@ export default {
       }
     },
   },
-  created() {
+  /*created() {
     this.id = this.$store.state.User.userAuth.id;
+  },*/
+  mounted() {
+    if (this.$store.state.User.userAuth) {
+      this.id = this.$store.state.User.userAuth.id;
+    } else {
+      this.$router.push("/loginuser");
+      alert("Debes loguearte para ver tu perfil");
+    }
   },
   mounted() {
     this.$apollo.queries.vehicleByIdUser.refetch();
