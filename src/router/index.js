@@ -10,7 +10,7 @@ import EditUser from "../views/User/EditUser.vue";
 import RegisterVehicle from "../views/Vehicles/RegisterVehicle.vue";
 import VerMapa from "../views/Routes/VerMapa.vue";
 
-import Vehicle from "../views/Vehicles/Vehicle.vue";
+import EditVehicle from "../views/Vehicles/EditVehicle.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -23,11 +23,6 @@ const routes = [
     path: "/registervehicle",
     name: "RegisterVehicle",
     component: RegisterVehicle,
-  },
-  {
-    path: "/vehicle",
-    name: "Vehicle",
-    component: Vehicle,
   },
   {
     path: "/createuser",
@@ -53,6 +48,11 @@ const routes = [
     path: "/edituser",
     name: "EditUser",
     component: EditUser,
+  },
+  {
+    path: "/editvehicle",
+    name: "EditVehicle",
+    component: EditVehicle,
   },
 ];
 

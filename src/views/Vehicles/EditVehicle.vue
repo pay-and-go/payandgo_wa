@@ -101,6 +101,7 @@ export default {
   name: "EditVehicle",
   data() {
     return {
+      id: "",
       vehicle: {
         iduser: "",
         placa: "",
@@ -128,8 +129,10 @@ export default {
             $marca: String!
             $tipo: Int!
             $color: String!
+            $id: Int!
           ) {
-            createVehicle(
+            updateVehicle(
+              id: $id
               vehicle: {
                 iduser: $iduser
                 placa: $placa
@@ -141,6 +144,7 @@ export default {
           }
         `,
         variables: {
+          id: this.id,
           iduser: this.vehicle.iduser,
           placa: this.vehicle.placa,
           marca: this.vehicle.marca,
