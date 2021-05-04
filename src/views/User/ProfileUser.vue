@@ -31,12 +31,44 @@
                 @click="editUser"
                 >Editar usuario</b-button
               >
-              <b-button variant="danger" @click="deleteUser"
+              <b-button class="firstButton" variant="danger" @click="deleteUser"
                 >Eliminar usuario</b-button
               >
             </b-card-text>
           </b-card></b-col
         >
+      </b-row>
+    </b-container>
+
+    <b-container class="vehiculos">
+      <b-row cols="2">
+        <div v-for="vehicle in vehicleByIdUser" :key="vehicle.id">
+          <b-card
+            title="Vehiculo"
+            img-src="https://www.pinclipart.com/picdir/big/148-1480772_accident-medical-auto-business-home-parqueadero-de-carro.png"
+            img-alt="Image"
+            img-top
+            tag="article"
+            class="mb-2"
+          >
+            <b-card-text>
+              Placa: {{ vehicle.placa }}
+              <br />
+              Marca: {{ vehicle.marca }}
+              <br />
+              Tipo: {{ vehicle.tipo }}
+              <br />
+              Color: {{ vehicle.color }}
+              <br />
+            </b-card-text>
+            <b-button variant="outline-info" @click="editVehicle"
+              >Editar vehiculo</b-button
+            >
+            <b-button variant="danger" @click="deleteVehicle(vehicle.id)"
+              >Eliminar vehiculo</b-button
+            >
+          </b-card>
+        </div>
       </b-row>
     </b-container>
   </div>
@@ -46,13 +78,64 @@
 import gql from "graphql-tag";
 
 export default {
-  name: "LoginUser",
+  name: "ProfileUser",
   data() {
     return {
       id: "",
+      key: 0,
     };
   },
+  apollo: {
+    vehicleByIdUser: {
+      query: gql`
+        query($iduser: Int!) {
+          vehicleByIdUser(iduser: $iduser) {
+            id
+            iduser
+            placa
+            marca
+            tipo
+            color
+            createdAt
+            updatedAt
+          }
+        }
+      `,
+      variables() {
+        return {
+          iduser: this.$store.state.User.userAuth.id,
+        };
+      },
+    },
+  },
   methods: {
+    editVehicle() {
+      this.$router.push("/editvehicle");
+    },
+    async deleteVehicle(idcar) {
+      console.log(idcar);
+      var conf = confirm(
+        "Quieres eliminar tu vehiculo. Esta accion no se podra reversar"
+      );
+      if (conf === true) {
+        await this.$apollo.mutate({
+          mutation: gql`
+            mutation($idvehicle: Int!) {
+              deleteVehicle(id: $idvehicle)
+            }
+          `,
+          variables: {
+            idvehicle: idcar,
+          },
+        });
+        this.$router.push("/");
+
+        console.log(this.vehicleByIdUser);
+      }
+    },
+    reload() {
+      this.$forceUpdate();
+    },
     editUser() {
       this.$router.push("/edituser");
     },
@@ -64,7 +147,7 @@ export default {
         await this.$apollo.mutate({
           mutation: gql`
             mutation($id: Int!) {
-              deleteUser(id: $id)
+              delete(id: $id)
             }
           `,
           variables: {
@@ -85,6 +168,10 @@ export default {
       this.$router.push("/loginuser");
       alert("Debes loguearte para ver tu perfil");
     }
+  },
+  mounted() {
+    this.$apollo.queries.vehicleByIdUser.refetch();
+    this.reload();
   },
 };
 </script>
@@ -137,7 +224,7 @@ export default {
   padding: 1.5rem;
 }
 
-.btn {
+.btn.firstButton {
   margin: 1.5rem;
   margin-left: 0;
 }

@@ -51,22 +51,7 @@
             required
           ></b-form-input
         ></b-form-group>
-        <!-- idusuario -->
-        <b-form-group
-          class="light-text"
-          label-class="font-weight-bold"
-          label="Id"
-          label-for="iduser"
-        >
-          <b-form-input
-            type="text"
-            maxlength="20"
-            id="iduser"
-            placeholder="Ingresa el ID del usuario"
-            v-model="vehicle.iduser"
-            required
-          ></b-form-input
-        ></b-form-group>
+
         <!-- Tipo -->
         <b-form-group
           class="light-text"
@@ -102,10 +87,11 @@ export default {
   data() {
     return {
       vehicle: {
-        iduser: "",
+        iduser: this.$store.state.User.userAuth.id,
         placa: "",
         marca: "",
         color: "",
+        name: this.$store.state.User.userAuth.first_name,
         tipo: null,
       },
       options: [
@@ -120,6 +106,31 @@ export default {
   methods: {
     async onClicked() {
       console.log(this.vehicle);
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation($iduser: String!, $name: String!, $placa: String!) {
+              createCar(
+                car: { idOwner: $iduser, nameOwner: $name, licenseCar: $placa }
+              ) {
+                idNodeCar
+              }
+            }
+          `,
+          variables: {
+            iduser: this.vehicle.iduser,
+            name: this.vehicle.name,
+            placa: this.vehicle.placa,
+          },
+        })
+        .then((data) => {
+          this.vehiculos();
+        })
+        .catch(() => {
+          alert("Este vehiculo ya esta creado");
+        });
+    },
+    async vehiculos() {
       await this.$apollo.mutate({
         mutation: gql`
           mutation(
@@ -148,6 +159,7 @@ export default {
           color: this.vehicle.color,
         },
       });
+      this.$router.push("/");
     },
   },
 };
