@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fondo">
     <b-container class="profileUser">
       <b-row>
         <b-col cols="1"> </b-col>
@@ -168,8 +168,6 @@ export default {
       this.$router.push("/loginuser");
       alert("Debes loguearte para ver tu perfil");
     }
-  },
-  mounted() {
     this.$apollo.queries.vehicleByIdUser.refetch();
     this.reload();
   },

@@ -1,7 +1,8 @@
 <template>
   <div class="fondo">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>En construccion</h1>
+    <br />
+    <img alt="Construccion" src="../assets/page_work.jpg" />
   </div>
 </template>
 
