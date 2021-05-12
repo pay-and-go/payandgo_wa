@@ -10,7 +10,7 @@ import ProfileUser from "../views/User/ProfileUser.vue";
 import EditUser from "../views/User/EditUser.vue";
 
 import RegisterVehicle from "../views/Vehicles/RegisterVehicle.vue";
-import VerMapa from "../views/Routes/VerMapa.vue";
+import CalculateRoute from "../views/Routes/CalculateRoute.vue";
 
 import EditVehicle from "../views/Vehicles/EditVehicle.vue";
 Vue.use(VueRouter);
@@ -42,9 +42,10 @@ const routes = [
     component: LogoutUser,
   },
   {
-    path: "/vermapa",
-    name: "VerMapa",
-    component: VerMapa,
+    path: "/calcularruta",
+    name: "CalculateRoute",
+    component: CalculateRoute,
+    props: true,
   },
   {
     path: "/profileuser",

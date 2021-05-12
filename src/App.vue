@@ -10,6 +10,10 @@
         >Registrar vehiculo |
       </router-link>
 
+      <router-link to="/calcularruta" v-if="$store.state.User.userAuth"
+        >Registrar vehiculo |
+      </router-link>
+
       <router-link to="/profileuser" v-if="$store.state.User.userAuth"
         >Perfil usuario |
       </router-link>

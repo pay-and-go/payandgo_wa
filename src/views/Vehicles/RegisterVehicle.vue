@@ -105,7 +105,6 @@ export default {
 
   methods: {
     async onClicked() {
-      console.log(this.vehicle);
       await this.$apollo
         .mutate({
           mutation: gql`

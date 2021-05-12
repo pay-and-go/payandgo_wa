@@ -1,26 +1,40 @@
 <template>
   <div>
-    <GmapMap
-      :center="myCoordinates"
-      :zoom="15"
-      style="width: 640px; height: 500px; margin: 32px auto"
-    >
+    <GmapMap id="map" ref="map" :zoom="16" :center="myCoordinates">
+      <DirectionsRenderer
+        travelMode="DRIVING"
+        :origin="origin"
+        :destination="destination"
+        :waypoints="waypoints"
+        :optimizeWaypoints="true"
+        :selectedRoute="routeObj"
+        :tollsInRoute="tollArr"
+      />
     </GmapMap>
   </div>
 </template>
 
 <script>
-//import gql from "graphql-tag";
+import DirectionsRenderer from "./DirectionsRenderer.js";
 
 export default {
+  components: {
+    DirectionsRenderer,
+  },
+  props: {
+    route: { type: Object },
+    tollsRoute: { type: Array },
+  },
   data() {
     return {
-      map: null,
       myCoordinates: {
         lat: 0,
         lng: 0,
       },
-      markers: [],
+      map: null,
+      waypts: [],
+      tolls: [],
+      sumPago: 0,
     };
   },
   created() {
@@ -28,9 +42,47 @@ export default {
       this.myCoordinates = coordinates;
     });
   },
-  methods: {},
+  computed: {
+    origin() {
+      return this.myCoordinates;
+    },
+    destination() {
+      if (!this.route) return null;
+      var endC = {
+        lat: this.route.latitudeEnd,
+        lng: this.route.longitudeEnd,
+      };
+      return endC;
+    },
+    waypoints() {
+      this.tolls = [];
+      if (this.tollsRoute != null) {
+        this.tollsRoute.forEach((toll) => {
+          this.tolls.push({
+            location: { lat: toll.coor_lat, lng: toll.coor_lng },
+            stopover: true,
+          });
+        });
+      }
+      return this.tolls;
+    },
+    routeObj() {
+      return this.route;
+    },
+    tollArr() {
+      return this.tollsRoute;
+    },
+  },
   mounted() {},
 };
 </script>
 
-<style></style>
+<style>
+.vue-map-container {
+  height: 85vh;
+  width: 70vw;
+}
+.vue-map {
+  height: 100%;
+}
+</style>
