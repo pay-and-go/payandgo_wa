@@ -3,8 +3,8 @@
     <b-container fluid class="profileUser">
       <b-row>
         <b-col cols="3">
-          <h3 class="title mt-4"><b>Seleccionar inicio</b></h3>
           <b-form class="form" id="form">
+            <h3 class="title mt-3"><b>Seleccionar inicio</b></h3>
             <b-form-group
               class="light-text"
               label-class="font-weight-bold"
@@ -23,7 +23,7 @@
                 >
               </b-form-select></b-form-group
             >
-            <h3 class="title mt-4"><b>Seleccionar fin</b></h3>
+            <h3 class="title mt-3"><b>Seleccionar fin</b></h3>
             <b-form-group
               class="light-text"
               label-class="font-weight-bold"
@@ -46,6 +46,13 @@
                 ></b-form-select
               >
             </b-form-group>
+            <b-button
+              class="mt-3"
+              type="submit"
+              variant="primary"
+              @click="goPayment"
+              >Pagar peajes</b-button
+            >
           </b-form>
         </b-col>
         <b-col cols="9">
@@ -153,8 +160,21 @@ export default {
         this.mapBool = true;
       }
     },
+    goPayment() {},
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.form {
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  background: #e74c4c;
+  border-radius: 10px;
+  max-width: 540px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+  text-align: justify;
+}
+</style>

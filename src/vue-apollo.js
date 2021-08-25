@@ -13,9 +13,7 @@ const AUTH_TOKEN = "apollo-token";
 
 // Http endpoint
 const httpEndpoint =
-  process.env.VUE_APP_GRAPHQL_HTTP ||
-  "http://localhost:5000/graphql" ||
-  "http://54.89.0.221/graphql";
+  process.env.VUE_APP_GRAPHQL_HTTP || "http://54.89.0.221/graphql";
 
 // Config
 const defaultOptions = {
