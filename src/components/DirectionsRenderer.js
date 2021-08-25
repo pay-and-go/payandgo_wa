@@ -121,7 +121,6 @@ export default MapElementFactory({
           Math.abs(this.tollsInRoute[i].coor_lng - leg.end_location.lng()) <
             0.0005
         ) {
-          console.log("Hola");
           this.createMarker(
             leg.end_location,
             "<center><b>PEAJE " +
