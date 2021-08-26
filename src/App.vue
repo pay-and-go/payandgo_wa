@@ -27,7 +27,7 @@
     <div id="bodyMain">
       <router-view />
     </div>
-    <div class="container-fluid text-center bg-light p-2 fixed-bottom">
+    <div id="footer" class="container-fluid text-center fixed-bottom">
     <h7>© Pay & Go Team</h7>
 </div>
   </div>
@@ -68,5 +68,16 @@
   height: 110vh;
   background-color: #fff3f0;
   background-size: cover;
+}
+
+#footer {
+  align:center;
+  padding: 0.7em;
+  background-color: #404361;
+}
+
+#footer h7{
+  font-weight: bold;
+  color: #ff5c5c;
 }
 </style>
