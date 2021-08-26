@@ -252,4 +252,7 @@ export default {
 .light-text {
   color: #141414 !important;
 }
+.fondo {
+  height: 150vh;
+}
 </style>

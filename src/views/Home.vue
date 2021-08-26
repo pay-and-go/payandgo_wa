@@ -1,7 +1,18 @@
 <template>
   <div class="fondo">
-    <div class="mt-5">
-      <b-container  class="principal">
+    <div class="mt-3">
+      <b-container class="principal">
+        <h2>¿Quienes somos?</h2>
+        <br />
+        <h5>
+          <b>Pay & Go</b> es un servicio pensado para reducir ese tiempo de
+          espera que siempre se genera en los peajes, con largas filas y
+          trancones que no tienen fin, por eso queremos agilizar este proceso,
+          permitiendote conocer tu ruta, los peajes que existan en ella y ademas
+          pagarlos desde el momento en que sales de viaje.
+        </h5>
+        <br />
+        <h2>Funcionalidades</h2>
         <b-row class="mt-5" align-v="center">
           <b-col cols="12" md="4">
             <b-card
@@ -71,5 +82,4 @@ export default {
 .principal {
   padding: 2rem;
 }
-
 </style>
