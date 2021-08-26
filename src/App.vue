@@ -41,14 +41,14 @@
 
 #nav {
   padding: 20px;
-  background-color: #ac614a;
+  background-color: #424e6b;
   position: fixed;
   width: 100%;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #ff5c5c;
 }
 
 #nav a.router-link-exact-active {
@@ -65,5 +65,9 @@
   height: 110vh;
   background-color: #ebe5d1;
   background-size: cover;
+}
+
+.mt-5{
+  position: absolute;
 }
 </style>
