@@ -37,7 +37,7 @@
 }
 
 #nav {
-  padding: 30px;
+  padding: 15px;
   background-color: #ee4646;
 }
 
