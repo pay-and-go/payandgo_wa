@@ -35,12 +35,7 @@
             required
           ></b-form-input
         ></b-form-group>
-        <b-button
-          block
-          class="button-primary mt-4"
-          syze="sm"
-          type="submit"
-          @click="onClicked"
+        <b-button block class="button-primary mt-4" syze="sm" @click="onClicked"
           >Ingresar</b-button
         >
       </b-form>
@@ -51,19 +46,6 @@
 <script>
 import gql from "graphql-tag";
 
-const ALLUSERS = gql`
-  query {
-    allUsers {
-      id
-      cedula
-      first_name
-      last_name
-      mail
-      password
-    }
-  }
-`;
-
 export default {
   name: "LoginUser",
   data() {
@@ -72,25 +54,57 @@ export default {
         mail: "",
         password: "",
       },
+      token: null,
     };
   },
-  apollo: {
-    allUsers: ALLUSERS,
-  },
   methods: {
-    onClicked() {
-      this.allUsers.forEach((element) => {
-        if (
-          element.mail == this.user.mail &&
-          element.password == this.user.password
-        ) {
-          this.$store.dispatch("User/loginUser", element);
-          this.$router.push("/");
-        }
-      });
+    async onClicked() {
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation($username: String!, $password: String!) {
+              login(username: $username, password: $password) {
+                token
+              }
+            }
+          `,
+          variables: {
+            username: this.user.mail,
+            password: this.user.password,
+          },
+        })
+        .then((data) => {
+          localStorage.setItem("token", data.data.login.token);
+          this.token = data.data.login.token;
+        });
 
-      if (this.$store.state.User.userAuth === null) {
+      await this.$apollo
+        .query({
+          query: gql`
+            query($username: String!, $token: String!) {
+              getUser(username: $username, token: $token) {
+                id
+                first_name
+                last_name
+                cedula
+                mail
+              }
+            }
+          `,
+          variables: {
+            username: this.user.mail,
+            token: this.token,
+          },
+        })
+        .then((data) => {
+          localStorage.setItem("mail", this.user.mail);
+          this.$store.dispatch("User/loginUser", data.data.getUser, this.token);
+        });
+
+      if (this.token === null || this.$store.state.User.userAuth === null) {
         alert("Credenciales incorrectas");
+      } else {
+        this.$router.push("/");
       }
     },
   },

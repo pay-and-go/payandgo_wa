@@ -14,7 +14,7 @@ const AUTH_TOKEN = "apollo-token";
 // Http endpoint
 const httpEndpoint =
   process.env.VUE_APP_GRAPHQL_HTTP ||
-  "https://https://proxy.payandgo.44.197.253.66.nip.io/graphql";
+  "https://proxy.payandgo.44.197.253.66.nip.io/graphql";
 
 // Config
 const defaultOptions = {

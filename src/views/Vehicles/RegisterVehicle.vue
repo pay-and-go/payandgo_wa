@@ -66,12 +66,7 @@
             required
           ></b-form-select
         ></b-form-group>
-        <b-button
-          block
-          class="button-primary mt-4"
-          syze="sm"
-          type="submit"
-          @click="onClicked"
+        <b-button block class="button-primary mt-4" syze="sm" @click="onClicked"
           >Registrar</b-button
         >
       </b-form>
@@ -124,6 +119,7 @@ export default {
         })
         .then((data) => {
           this.vehiculos();
+          this.$router.push("/");
         })
         .catch(() => {
           alert("Este vehiculo ya esta creado");
@@ -158,7 +154,6 @@ export default {
           color: this.vehicle.color,
         },
       });
-      this.$router.push("/");
     },
     mounted() {
       if (this.$store.state.User.userAuth) {

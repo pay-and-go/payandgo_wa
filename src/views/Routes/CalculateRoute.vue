@@ -125,7 +125,7 @@ export default {
         start: "",
         end: "",
       },
-      optionsStart: [{ value: "Bogota", text: "Bogota" }],
+      optionsStart: [{ value: "Bogotá", text: "Bogotá" }],
       route: null,
       mapBool: true,
     };
@@ -137,6 +137,7 @@ export default {
     getRoute() {
       if (this.modelRoute.start == "" || this.modelRoute.end == "") return null;
       this.allRoutes.forEach((element) => {
+        console.log(element);
         if (
           element.startCity == this.modelRoute.start &&
           element.arrivalCity == this.modelRoute.end

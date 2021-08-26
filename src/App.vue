@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <a href="#/"
-        ><img
+      <router-link to="/">
+        <img
           src="./assets/payAndGoLogo.png"
           alt="Logo Pay And Go"
           widht="80em"
           height="35em"
-      /></a>
-      <router-link to="/">Home</router-link> |
+          style="padding-right: 3em"
+        />
+      </router-link>
+      <router-link to="/">Home | </router-link>
       <router-link to="/createuser" v-if="!$store.state.User.userAuth"
         >Crear Usuario |
       </router-link>
@@ -18,7 +20,7 @@
       </router-link>
 
       <router-link to="/calcularruta" v-if="$store.state.User.userAuth"
-        >Registrar vehiculo |
+        >Calcular ruta |
       </router-link>
 
       <router-link to="/profileuser" v-if="$store.state.User.userAuth"
@@ -34,10 +36,45 @@
       <router-view />
     </div>
     <div id="footer" class="container-fluid text-center fixed-bottom">
-      <h7>© Pay & Go Team</h7>
+      <h6>© Pay & Go Team</h6>
     </div>
   </div>
 </template>
+
+<script>
+import gql from "graphql-tag";
+
+export default {
+  name: "App",
+  async created() {
+    if (localStorage.getItem("token")) {
+      var token = localStorage.getItem("token");
+      var mail = localStorage.getItem("mail");
+      await this.$apollo
+        .query({
+          query: gql`
+            query($username: String!, $token: String!) {
+              getUser(username: $username, token: $token) {
+                id
+                first_name
+                last_name
+                cedula
+                mail
+              }
+            }
+          `,
+          variables: {
+            username: mail,
+            token: token,
+          },
+        })
+        .then((data) => {
+          this.$store.dispatch("User/loginUser", data.data.getUser, this.token);
+        });
+    }
+  },
+};
+</script>
 
 <style>
 #app {
@@ -82,7 +119,7 @@
   background-color: #404361;
 }
 
-#footer h7 {
+#footer h6 {
   font-weight: bold;
   color: #ff5c5c;
 }

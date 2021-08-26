@@ -35,7 +35,23 @@
             required
           ></b-form-input
         ></b-form-group>
-        <!-- Color -->
+        <!-- Username -->
+        <b-form-group
+          class="light-text"
+          label-class="font-weight-bold"
+          label="Username"
+          label-for="username"
+        >
+          <b-form-input
+            type="text"
+            maxlength="20"
+            id="username"
+            placeholder="Ingresa su username"
+            v-model="user.username"
+            required
+          ></b-form-input
+        ></b-form-group>
+        <!-- Cedula -->
         <b-form-group
           class="light-text"
           label-class="font-weight-bold"
@@ -60,7 +76,7 @@
         >
           <b-form-input
             type="text"
-            maxlength="20"
+            maxlength="35"
             id="mail"
             placeholder="Ingresa el correo"
             v-model="user.mail"
@@ -87,7 +103,7 @@
         <b-form-group
           class="light-text"
           label-class="font-weight-bold"
-          label="Contraseña"
+          label="Verificar contraseña"
           label-for="verifyPassword"
         >
           <b-form-input
@@ -95,16 +111,11 @@
             maxlength="20"
             id="verifyPassword"
             placeholder="Repita su contraseña"
-            v-model="verifyPassword"
+            v-model="user.verifyPassword"
             required
           ></b-form-input
         ></b-form-group>
-        <b-button
-          block
-          class="button-primary mt-4"
-          syze="sm"
-          type="submit"
-          @click="onClicked"
+        <b-button block class="button-primary mt-4" syze="sm" @click="onClicked"
           >Registrar</b-button
         >
       </b-form>
@@ -124,62 +135,61 @@ export default {
       user: {
         first_name: "",
         last_name: "",
+        username: "",
         cedula: "",
         mail: "",
         password: "",
+        verifyPassword: "",
       },
-      vehicle: {
-        nameOwner: "Pedro",
-        idOwner: "1230",
-        licenseCar: "CDD130",
-      },
-      verifyPassword: "",
       response: null,
     };
   },
   methods: {
     async onClicked() {
-      if (this.user.password === this.verifyPassword) {
+      if (this.user.password === this.user.verifyPassword) {
         await this.$apollo
           .mutate({
             mutation: gql`
               mutation(
                 $first_name: String!
                 $last_name: String!
+                $username: String!
                 $cedula: Int!
                 $mail: String!
                 $password: String!
+                $password2: String!
               ) {
                 createUser(
                   user: {
                     first_name: $first_name
                     last_name: $last_name
+                    username: $username
                     cedula: $cedula
                     mail: $mail
                     password: $password
+                    password2: $password2
                   }
                 ) {
-                  first_name
-                  last_name
+                  response
+                  email
+                  username
+                  token
                 }
               }
             `,
             variables: {
               first_name: this.user.first_name,
               last_name: this.user.last_name,
+              username: this.user.username,
               cedula: this.user.cedula,
               mail: this.user.mail,
               password: this.user.password,
+              password2: this.user.verifyPassword,
             },
           })
           .then((data) => {
-            alert(
-              "Usuario: " +
-                data.first_name +
-                " " +
-                data.last_name +
-                "agregado correctamente"
-            );
+            alert(data.data.createUser.response);
+            this.$router.push("/");
           })
           .catch(() => {
             alert("El usuario ya existe en el sistema");
@@ -194,29 +204,6 @@ export default {
         this.verifyPassword = "";
         alert("Las contraseñas no coinciden");
       }
-    },
-
-    async prb() {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation($name: String!, $license_car: String!, $id_owner: String!) {
-            createCar(
-              car: {
-                licenseCar: $license_car
-                nameOwner: $name
-                idOwner: $id_owner
-              }
-            ) {
-              idNodeCar
-            }
-          }
-        `,
-        variables: {
-          name: this.vehicle.nameOwner,
-          license_car: this.vehicle.licenseCar,
-          id_owner: this.vehicle.idOwner,
-        },
-      });
     },
   },
   created() {
