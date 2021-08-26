@@ -44,7 +44,7 @@
 
 #nav {
   padding: 20px;
-  background-color: #424e6b;
+  background-color: #404361;
   position: fixed;
   width: 100%;
 }
@@ -66,7 +66,7 @@
   margin-top: -5px;
   padding-top: 25px;
   height: 110vh;
-  background-color: #ebe5d1;
+  background-color: #fff3f0;
   background-size: cover;
 }
 </style>
