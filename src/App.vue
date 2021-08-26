@@ -66,8 +66,4 @@
   background-color: #ebe5d1;
   background-size: cover;
 }
-
-.mt-5{
-  position: absolute;
-}
 </style>

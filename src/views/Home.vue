@@ -1,7 +1,7 @@
 <template>
   <div class="fondo">
     <div class="mt-5">
-      <b-container>
+      <b-container  class="principal">
         <b-row class="mt-5" align-v="center">
           <b-col cols="12" md="4">
             <b-card
@@ -66,3 +66,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.principal {
+  padding: 2rem;
+}
+
+</style>
