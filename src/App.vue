@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <div id="nav">
-      <a href="#/"><img src="./assets/payAndGoLogo.png"  alt="Logo Pay And Go" widht="80em" height="35em"></a>
+      <a href="#/"
+        ><img
+          src="./assets/payAndGoLogo.png"
+          alt="Logo Pay And Go"
+          widht="80em"
+          height="35em"
+      /></a>
       <router-link to="/">Home</router-link> |
       <router-link to="/createuser" v-if="!$store.state.User.userAuth"
         >Crear Usuario |
@@ -22,7 +28,7 @@
       <router-link to="/loginuser" v-if="!$store.state.User.userAuth"
         >Iniciar sesion</router-link
       >
-      <router-link to="/logoutuser" v-else>Cerrar sesion</router-link>  
+      <router-link to="/logoutuser" v-else>Cerrar sesion</router-link>
     </div>
     <div id="bodyMain">
       <router-view />
@@ -41,7 +47,7 @@
 
 #nav {
   padding: 20px;
-  background-color: #424e6b;
+  background-color: #404361;
   position: fixed;
   width: 100%;
 }
@@ -63,7 +69,7 @@
   margin-top: -5px;
   padding-top: 25px;
   height: 110vh;
-  background-color: #ebe5d1;
+  background-color: #edf2f4;
   background-size: cover;
 }
 </style>
