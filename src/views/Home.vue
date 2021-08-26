@@ -61,7 +61,6 @@
             </b-card>
           </b-col>
         </b-row>
-        <h7>© Pay & Go Team</h7>
       </b-container>
     </div>
   </div>
