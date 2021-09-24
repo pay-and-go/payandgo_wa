@@ -12,7 +12,7 @@
         >
           <b-form-input
             type="text"
-            maxlength="6"
+            maxlength="35"
             id="first_name"
             placeholder="Ingresa su nombre"
             v-model="user.first_name"
@@ -28,7 +28,7 @@
         >
           <b-form-input
             type="text"
-            maxlength="20"
+            maxlength="35"
             id="last_name"
             placeholder="Ingresa sus apellidos"
             v-model="user.last_name"
@@ -44,7 +44,7 @@
         >
           <b-form-input
             type="text"
-            maxlength="20"
+            maxlength="35"
             id="username"
             placeholder="Ingresa su username"
             v-model="user.username"
@@ -60,7 +60,7 @@
         >
           <b-form-input
             type="text"
-            maxlength="20"
+            maxlength="35"
             id="cedula"
             placeholder="Ingresa su documento de identificacion"
             v-model="user.cedula"
@@ -92,7 +92,7 @@
         >
           <b-form-input
             type="password"
-            maxlength="20"
+            maxlength="35"
             id="password"
             placeholder="Ingresa su contraseña"
             v-model="user.password"
@@ -108,7 +108,7 @@
         >
           <b-form-input
             type="password"
-            maxlength="20"
+            maxlength="35"
             id="verifyPassword"
             placeholder="Repita su contraseña"
             v-model="user.verifyPassword"
